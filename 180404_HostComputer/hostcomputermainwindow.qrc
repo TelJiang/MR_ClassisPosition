@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/Icon">
+        <file>displayDataForm.png</file>
+        <file>displayLineChart.png</file>
+        <file>run.png</file>
+        <file>searchCamera.png</file>
+        <file>searchSerialPort.png</file>
+        <file>openCamera.png</file>
+        <file>oneButtonStart.png</file>
+        <file>test.ico</file>
+    </qresource>
+</RCC>
