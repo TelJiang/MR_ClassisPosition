@@ -114,31 +114,31 @@ bool CCameraDS::OpenCamera(int nCamID, bool bDisplayProperties, int nWidth, int 
 	BindFilter(nCamID, &m_pDeviceFilter);
 	//在这里可以设置，白平衡，曝光等。
 	//自己添加的设置白平衡为非自动调节（即关掉自动调节白平衡）
-	//IAMVideoProcAmp *pProcAmp = 0;
-	//hr = m_pDeviceFilter->QueryInterface(IID_IAMVideoProcAmp, (void**)&pProcAmp);
-	//if (FAILED(hr))
-	//{
-	//	std::cout << "fail" << std::endl;
-	//}
-	//else
-	//{
-	//	long Min, Max, Step, Default, Flags, Val;
-	//	Val = (long)4600;
-	//	hr = pProcAmp->GetRange(VideoProcAmp_WhiteBalance, &Min, &Max, &Step,
-	//		&Default, &Flags);
-	//	std::cout << "白平衡Default:" << Default << std::endl;
-	//	if (hr == S_OK)
-	//	{
-	//		// Get the current value.
-	//		hr = pProcAmp->Set(VideoProcAmp_WhiteBalance, Val, VideoProcAmp_Flags_Auto);
-	//		if (FAILED(hr))
-	//		{
-	//			std::cout << "set WhiteBalance failed" << std::endl;
-	//		}
-	//	}
-	//	//std::cout << Val << std::endl;
-	//	pProcAmp->Release();
-	//}
+	IAMVideoProcAmp *pProcAmp = 0;
+	hr = m_pDeviceFilter->QueryInterface(IID_IAMVideoProcAmp, (void**)&pProcAmp);
+	if (FAILED(hr))
+	{
+		std::cout << "fail" << std::endl;
+	}
+	else
+	{
+		long Min, Max, Step, Default, Flags, Val;
+		Val = (long)4600;
+		hr = pProcAmp->GetRange(VideoProcAmp_WhiteBalance, &Min, &Max, &Step,
+			&Default, &Flags);
+		std::cout << "白平衡Default:" << Default << std::endl;
+		if (hr == S_OK)
+		{
+			// Get the current value.
+			hr = pProcAmp->Set(VideoProcAmp_WhiteBalance, Val, VideoProcAmp_Flags_Manual);
+			if (FAILED(hr))
+			{
+				std::cout << "set WhiteBalance failed" << std::endl;
+			}
+		}
+		//std::cout << Val << std::endl;
+		pProcAmp->Release();
+	}
 
 	//IAMVideoProcAmp *pProcAmp_1 = 0;  //亮度
 	//hr = m_pDeviceFilter->QueryInterface(IID_IAMVideoProcAmp, (void**)&pProcAmp_1);
@@ -167,35 +167,35 @@ bool CCameraDS::OpenCamera(int nCamID, bool bDisplayProperties, int nWidth, int 
 	//}
 
 	//光圈
-	IAMVideoProcAmp *pProcAmp_2 = 0;
-	hr = m_pDeviceFilter->QueryInterface(IID_IAMCameraControl, (void**)&pProcAmp_2);
-	if (FAILED(hr))
-	{
-		std::cout << "fail" << std::endl;
-	}
-	else
-	{
-		long Min, Max, Step, Default, Flags, Val;
-		Val = (long)-4;
-		hr = pProcAmp_2->GetRange(CameraControl_Exposure, &Min, &Max, &Step,
-			&Default, &Flags);
-		std::cout << "光圈Default:" << Default << std::endl;
-		if (hr == S_OK)
-		{
-			//Get the current value.
-			hr = pProcAmp_2->Set(CameraControl_Exposure, Val, VideoProcAmp_Flags_Manual);
-			if (FAILED(hr))
-			{
-				std::cout << "set Exposure failed" << std::endl;
-			}
-		}
-		else
-		{
-			std::cout << "no" << std::endl;
-		}
-		//std::cout << Val << std::endl;
-		pProcAmp_2->Release();
-	}
+	//IAMVideoProcAmp *pProcAmp_2 = 0;
+	//hr = m_pDeviceFilter->QueryInterface(IID_IAMCameraControl, (void**)&pProcAmp_2);
+	//if (FAILED(hr))
+	//{
+	//	std::cout << "fail" << std::endl;
+	//}
+	//else
+	//{
+	//	long Min, Max, Step, Default, Flags, Val;
+	//	Val = (long)-4;
+	//	hr = pProcAmp_2->GetRange(CameraControl_Exposure, &Min, &Max, &Step,
+	//		&Default, &Flags);
+	//	std::cout << "光圈Default:" << Default << std::endl;
+	//	if (hr == S_OK)
+	//	{
+	//		//Get the current value.
+	//		hr = pProcAmp_2->Set(CameraControl_Exposure, Val, VideoProcAmp_Flags_Auto);
+	//		if (FAILED(hr))
+	//		{
+	//			std::cout << "set Exposure failed" << std::endl;
+	//		}
+	//	}
+	//	else
+	//	{
+	//		std::cout << "no" << std::endl;
+	//	}
+	//	//std::cout << Val << std::endl;
+	//	pProcAmp_2->Release();
+	//}
 
 
 	m_pGraph->AddFilter(m_pDeviceFilter, NULL);

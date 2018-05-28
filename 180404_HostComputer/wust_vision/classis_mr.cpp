@@ -105,22 +105,21 @@ namespace mv
 				{
 					system("pause");
 				}
-
 				cv::Mat remap_src;
-				remap(src, remap_src, map1, map2, cv::INTER_LINEAR);
-				cv::Mat __src(remap_src, cv::Rect(55, 40, 490, 430));
+				//remap(src, remap_src, map1, map2, cv::INTER_LINEAR);
+				cv::Mat __src(src, cv::Rect(55, 40, 490, 430));
 				cv::resize(__src, src_resize, cv::Size((int)simpleCameraWidth*resizeHalf, (int)simpleCameraHeight*resizeHalf));
+				
 				//do
 				//{
 				//	IplImage *pFrame1 = Camera0.QueryFrame();
 				//	if (pFrame1 != NULL)
 				//	{
 				//		src = cv::cvarrToMat(pFrame1, true);
-
 				//		cv::Mat remap_src;
-				//		remap(src, remap_src, map1, map2, cv::INTER_LINEAR);
+				//		//remap(src, remap_src, map1, map2, cv::INTER_LINEAR);
 				//		//cv::Mat __src(remap_src, cv::Rect(0, 0, simpleCameraWidth, simpleCameraHeight));
-				//		cv::Mat __src(remap_src, cv::Rect(60, 0, 450, 370));
+				//		cv::Mat __src(src, cv::Rect(55, 40, 490, 430));
 				//		cv::resize(__src, src_resize, cv::Size(simpleCameraWidth*resizeHalf, simpleCameraHeight*resizeHalf));
 				//		break;
 				//	}
@@ -1218,6 +1217,17 @@ namespace mv
 		else
 		{
 			//Camera0.OpenCamera(Camera_num, false, 640, 480);
+			CCameraDS camera_1;
+			camera_1.OpenCamera(Camera_num, false, 640, 480);
+			do
+			{
+				IplImage *pFrame1 = camera_1.QueryFrame();
+				if (pFrame1 != NULL)
+				{
+					break;
+				}
+			} while (true);
+			camera_1.CloseCamera();
 
 			CameraIsOpen = true;
 			cap.open(Camera_num);

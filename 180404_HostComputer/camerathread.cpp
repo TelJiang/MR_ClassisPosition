@@ -270,7 +270,7 @@ void CameraThread::run()
 	else if(MR_BallRockCameraName == usedCameraName) {
 
 	}
-	else if (1/*MR_chasisCameraName == usedCameraName*/) {
+	else if (MR_chasisCameraName == usedCameraName) {
 		dataID << MyProtocol::MR_ChasisCamera_dx << MyProtocol::MR_ChasisCamera_dy << MyProtocol::MR_ChasisCamera_angle;
 
 		line_MR.CloseOrOpenCamera(mv::MV_OPEN, index);
@@ -287,23 +287,23 @@ void CameraThread::run()
 	}
 	else {
 		//根据图像处理程序输出参数的个数设置数据ID的个数
-		dataID << MyProtocol::Check << MyProtocol::Check << MyProtocol::Check;
-
-		//打开摄像头以及初始化操作
-		testCamera.openCamera(index);
-		/******************************************************/
-		
-		//事件循环
-		while (isRun) {
-			time = QTime::currentTime();
-			//图像处理程序
-			testCamera.showPicture();
-			dealWithData(testCamera.outputData());
-		}
-
-		//关闭摄像头
-		testCamera.closeCamera(index);
-		qDebug() << "finished";
+// 		dataID << MyProtocol::Check << MyProtocol::Check << MyProtocol::Check;
+// 
+// 		//打开摄像头以及初始化操作
+// 		testCamera.openCamera(index);
+// 		/******************************************************/
+// 		
+// 		//事件循环
+// 		while (isRun) {
+// 			time = QTime::currentTime();
+// 			//图像处理程序
+// 			testCamera.showPicture();
+// 			dealWithData(testCamera.outputData());
+// 		}
+// 
+// 		//关闭摄像头
+// 		testCamera.closeCamera(index);
+// 		qDebug() << "finished";
 	}
 }
 
